@@ -4,7 +4,7 @@ module.exports = async ({github, context, core}) => {
 
   const { parseCommand, addComment, addReaction } = useHelpers({github, context, core});
 
-  console.log(context.repo);
+  console.log(context.payload);
 
   const comment = context.payload.comment;
   const parseResult = parseCommand(comment.body);
