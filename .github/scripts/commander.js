@@ -10,9 +10,6 @@ module.exports = async ({github, context, core}) => {
     repo: context.payload.repo.repo,
     body,
   }); 
-
-  debug("Getting the comment and checking it for a command");
-
   const comment = context.payload.comment;
   const parseResult = parseCommand(comment.body);
 
