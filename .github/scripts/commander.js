@@ -23,15 +23,17 @@ module.exports = async ({github, context, core}) => {
     return false;
   }
 
-  const command = {
-    raw: parseResult[0],
-    name: parseResult[1],
-    args: parseResult[2],
-  }
 
-  core.notice(`Command detected '${command.name}'`);
+  const [commandRaw, commandName, commandArgs] = parseResult
+
+  core.notice(`Command detected '${commandName}'`);
   console.log(command, commands);
 
+  const command = commands.find((x) => x.name === commandName)
+
+  if(!command) {
+    await command.execute({github, context, core});
+  }
   // switch (command.name) {
   //   case 'ping':
       
