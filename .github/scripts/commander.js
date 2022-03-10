@@ -1,15 +1,30 @@
-const parseCommand = (text) => text.match(/^\/([\w]+)\b *(.*)?$/m);
+
+const useHelpers = ({github, context, core}) => ({
+  parseCommand: text => text.match(/^\/([\w]+)\b *(.*)?$/m),
+  addComment: 
+    body =>
+      github.rest.issues.createComment({
+        issue_number: context.payload.issue.number,
+        owner: context.payload.repository.owner.login,
+        repo: context.payload.repository.name,
+        body,
+    }),
+  addReaction: 
+    (body = 'eyes') =>
+      github.rest.reactions.createForCommitComment({
+        comment_id: context.payload.comment.id,
+        owner: context.payload.repository.owner.login,
+        repo: context.payload.repository.name,
+        body,
+      }),
+})
+
 module.exports = async ({github, context, core}) => {
 
+  const { parseCommand, addComment, addReaction } = useHelpers({github, context, core});
 
-  console.log(context.payload, context.payload.repo);
+  console.log(context.payload);
 
-  const addComment = (body) =>  github.rest.issues.createComment({
-    issue_number: context.payload.issue.number,
-    owner: context.payload.repository.owner.login,
-    repo: context.payload.repository.name,
-    body,
-  }); 
   const comment = context.payload.comment;
   const parseResult = parseCommand(comment.body);
 
@@ -29,7 +44,8 @@ module.exports = async ({github, context, core}) => {
 
   switch (command.name) {
     case 'ping':
-      addComment('![Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)');
+      await addComment('![Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)');
+      await addReaction();
       break;
     default:
       core.notice(`Command unhandled`);
