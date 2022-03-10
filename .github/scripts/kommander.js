@@ -1,6 +1,5 @@
 const { useHelpers, Reactions } = require('./helpers');
 const ping = require('./commands/ping');
-
 const commands = [
   ping,
 ];
@@ -31,17 +30,13 @@ module.exports = async ({github, context, core}) => {
   const command = commands.find((x) => x.name === commandName)
 
   if(!command) {
-    await command.execute({github, context, core});
+    core.notice(`Command unhandled`);
+    await addReaction(Reactions.Confused);
+    return false;
   }
-  // switch (command.name) {
-  //   case 'ping':
-      
-  //     break;
-  //   default:
-  //     core.notice(`Command unhandled`);
-  //     await addReaction(Reactions.Confused);
-  //     break;
-  // }
 
-  return false;
+  console.log(command);
+
+  await command.execute({github, context, core});
+  return true;
 }

@@ -11,5 +11,5 @@ jobs:
           SHA: '${{env.parentSHA}}'
         with:
           script: |
-            const script = require('${{ github.workspace }}/.github/scripts/commander.js')
+            const script = require('${{ github.workspace }}/.github/scripts/kommander.js')
             await script({github, context, core})
