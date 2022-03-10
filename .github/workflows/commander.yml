@@ -15,10 +15,13 @@ jobs:
           reaction-type: "eyes"
           # allow-edits: "false"
           permission-level: admin
-      - uses: mshick/add-pr-comment@v1
+      - name: Reply
+        uses: actions/github-script@v4
         with:
-          message: |
-            Pong !
-            [Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'PR Commander'
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Pong ![Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)',
+            }); 
