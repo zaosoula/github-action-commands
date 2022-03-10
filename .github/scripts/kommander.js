@@ -27,7 +27,7 @@ module.exports = async ({github, context, core}) => {
 
   core.notice(`Command detected '${commandName}'`);
 
-  const command = commands.find((x) => x.name === commandName)
+  const command = commands.find((x) => x.command === commandName)
 
   if(!command) {
     core.notice(`Command unhandled`);
