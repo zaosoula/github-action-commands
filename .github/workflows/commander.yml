@@ -13,22 +13,3 @@ jobs:
           script: |
             const script = require('${{ github.workspace }}/.github/scripts/commander.js')
             await script({github, context, core})
-      # - name: Check for command
-      #   id: command
-      #   uses: xt0rted/slash-command-action@v1
-      #   with:
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-      #     command: ping
-      #     reaction: true
-      #     reaction-type: "eyes"
-      #     permission-level: admin
-      # - name: Reply
-      #   uses: actions/github-script@v6
-      #   with:
-      #     script: |
-      #       github.issues.createComment({
-      #         issue_number: context.issue.number,
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         body: '![Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)',
-      #       }); 
