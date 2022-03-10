@@ -1,8 +1,13 @@
 const { useHelpers, Reactions } = require('./helpers');
+const ping = require('./commands/ping');
+
+const commands = [
+  ping,
+];
 
 module.exports = async ({github, context, core}) => {
 
-  const { parseCommand, addComment, addReaction } = useHelpers({github, context, core});
+  const { parseCommand, addReaction } = useHelpers({github, context, core});
 
   console.log(context.payload);
 
@@ -25,18 +30,17 @@ module.exports = async ({github, context, core}) => {
   }
 
   core.notice(`Command detected '${command.name}`);
-  console.log(command);
+  console.log(command, commands);
 
-  switch (command.name) {
-    case 'ping':
-      await addComment('![Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)');
-      await addReaction();
-      break;
-    default:
-      core.notice(`Command unhandled`);
-      await addReaction(Reactions.Confused);
-      break;
-  }
+  // switch (command.name) {
+  //   case 'ping':
+      
+  //     break;
+  //   default:
+  //     core.notice(`Command unhandled`);
+  //     await addReaction(Reactions.Confused);
+  //     break;
+  // }
 
   return false;
 }
