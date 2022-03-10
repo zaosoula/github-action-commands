@@ -1,0 +1,22 @@
+on: [issue_comment]
+name: PR Commands
+jobs:
+  command_ping:
+    name: Check comments for /ping
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for command
+        id: command
+        uses: xt0rted/slash-command-action@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          command: ping
+          # reaction: "true"
+          # reaction-type: "eyes"
+          # allow-edits: "false"
+          permission-level: admin
+      - uses: jdvr/action-add-comment@main
+        with:
+          comment: 'Pong !\n[Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
