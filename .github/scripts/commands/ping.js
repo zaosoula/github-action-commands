@@ -1,4 +1,4 @@
-const { useHelpers, Reactions } = require('./helpers');
+const { useHelpers, Reactions } = require('../helpers');
 
 module.export = {
   command: 'ping',
