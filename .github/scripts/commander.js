@@ -1,27 +1,43 @@
 const parseCommand = (text) => text.match(/^\/([\w]+)\b *(.*)?$/m);
-
 module.exports = async ({github, context, core}) => {
 
-  const { debug, setFailed } = core;
 
-  console.log(context);
+  console.log(context.payload, context.payload.repo);
+
+  const addComment = (body) =>  github.rest.issues.createComment({
+    issue_number: context.payload.issue.number,
+    owner: context.payload.repo.owner,
+    repo: context.payload.repo.repo,
+    body,
+  }); 
 
   debug("Getting the comment and checking it for a command");
 
   const comment = context.payload.comment;
-  const command = parseCommand(comment.body);
+  const parseResult = parseCommand(comment.body);
 
-  if(!command) {
-    setFailed('No command detected');
+  if(!parseResult) {
+    core.notice('No command detected');
     return false;
   }
 
-  debug('Command detected');
+  const command = {
+    raw: parseResult[0],
+    name: parseResult[1],
+    args: parseResult[2],
+  }
+
+  core.notice(`Command detected '${command.name}`);
   console.log(command);
-  // github.issues.createComment({
-  //   issue_number: context.issue.number,
-  //   owner: context.repo.owner,
-  //   repo: context.repo.repo,
-  //   body: '![Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)',
-  // }); 
+
+  switch (command.name) {
+    case 'ping':
+      addComment('![Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)');
+      break;
+    default:
+      core.notice(`Command unhandled`);
+      break;
+  }
+
+  return false;
 }
