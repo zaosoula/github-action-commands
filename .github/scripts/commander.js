@@ -21,12 +21,12 @@ const useHelpers = ({github, context, core}) => ({
         body,
     }),
   addReaction: 
-    (body = Reactions.Eyes) =>
+    (content = Reactions.Eyes) =>
       github.rest.reactions.createForCommitComment({
         comment_id: context.payload.comment.id,
         owner: context.payload.repository.owner.login,
         repo: context.payload.repository.name,
-        body,
+        content,
       }),
 })
 
