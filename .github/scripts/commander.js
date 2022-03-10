@@ -1,4 +1,15 @@
 
+const Reactions = {
+  Confused: 'confused',
+  Eyes: 'eyes',
+  Heart: 'heart',
+  Hooray: 'hooray',
+  Laugh: 'laugh',
+  Rocket: 'rocket',
+  '+1': '+1', 
+  '-1': '-1', 
+};
+
 const useHelpers = ({github, context, core}) => ({
   parseCommand: text => text.match(/^\/([\w]+)\b *(.*)?$/m),
   addComment: 
@@ -10,7 +21,7 @@ const useHelpers = ({github, context, core}) => ({
         body,
     }),
   addReaction: 
-    (body = 'eyes') =>
+    (body = Reactions.Eyes) =>
       github.rest.reactions.createForCommitComment({
         comment_id: context.payload.comment.id,
         owner: context.payload.repository.owner.login,
@@ -49,6 +60,7 @@ module.exports = async ({github, context, core}) => {
       break;
     default:
       core.notice(`Command unhandled`);
+      await addReaction(Reactions.Confused);
       break;
   }
 
