@@ -11,12 +11,14 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           command: ping
-          # reaction: "true"
-          # reaction-type: "eyes"
+          reaction: true
+          reaction-type: "eyes"
           # allow-edits: "false"
           permission-level: admin
-      - uses: jdvr/action-add-comment@main
+      - uses: mshick/add-pr-comment@v1
         with:
-          comment: 'Pong !\n[Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          message: |
+            Pong !
+            [Ping Pong](https://media.giphy.com/media/l41lIvPtFdU3cLQjK/giphy.gif)'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'PR Commander'
