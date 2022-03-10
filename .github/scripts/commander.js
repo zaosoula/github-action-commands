@@ -6,7 +6,11 @@ module.exports = async ({github, context, core}) => {
 
   console.log(context.payload);
 
-  const comment = context.payload.comment;
+  const { action, comment } = context.payload;
+  if(action !== 'created') {
+    core.notice(`Comment is not 'created'`);
+    return false;
+  }
   const parseResult = parseCommand(comment.body);
 
   if(!parseResult) {
