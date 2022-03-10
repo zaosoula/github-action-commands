@@ -6,8 +6,8 @@ module.exports = async ({github, context, core}) => {
 
   const addComment = (body) =>  github.rest.issues.createComment({
     issue_number: context.payload.issue.number,
-    owner: context.payload.repo.owner,
-    repo: context.payload.repo.repo,
+    owner: context.payload.repository.owner.login,
+    repo: context.payload.repository.name,
     body,
   }); 
   const comment = context.payload.comment;
