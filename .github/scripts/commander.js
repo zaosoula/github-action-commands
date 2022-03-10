@@ -29,7 +29,7 @@ module.exports = async ({github, context, core}) => {
     args: parseResult[2],
   }
 
-  core.notice(`Command detected '${command.name}`);
+  core.notice(`Command detected '${command.name}'`);
   console.log(command, commands);
 
   // switch (command.name) {
