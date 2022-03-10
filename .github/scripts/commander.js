@@ -27,7 +27,6 @@ module.exports = async ({github, context, core}) => {
   const [commandRaw, commandName, commandArgs] = parseResult
 
   core.notice(`Command detected '${commandName}'`);
-  console.log(command, commands);
 
   const command = commands.find((x) => x.name === commandName)
 
