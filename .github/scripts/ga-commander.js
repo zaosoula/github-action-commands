@@ -1,9 +1,11 @@
 const { useHelpers, Reactions } = require('./helpers');
 const ping = require('./commands/ping');
 const help = require('./commands/help');
+const linkApi = require('./commands/link-api');
 const commands = [
   ping,
   help,
+  linkApi,
 ];
 
 module.exports = async ({github, context, core}) => {
