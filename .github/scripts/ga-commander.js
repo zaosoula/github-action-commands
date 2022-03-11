@@ -43,7 +43,7 @@ module.exports = async ({github, context, core}) => {
     github,
     context,
     core,
-    args,
+    args: commandArgs,
     commands
   }
 
