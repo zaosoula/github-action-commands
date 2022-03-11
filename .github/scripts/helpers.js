@@ -11,7 +11,7 @@ const Reactions = {
 };
 
 const useHelpers = ({github, context, core}) => ({
-  parseCommand: text => text.match(/^\/([\w]+)\b *(.*)?$/m),
+  parseCommand: text => text.match(/^\/([\S]+) *(.*)?$/m),
   addComment: 
     body =>
       github.rest.issues.createComment({
