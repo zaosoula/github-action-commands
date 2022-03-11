@@ -37,6 +37,6 @@ module.exports = async ({github, context, core}) => {
 
   console.log(command);
 
-  await command.execute({github, context, core});
+  await command.execute({github, context, core, args});
   return true;
 }
