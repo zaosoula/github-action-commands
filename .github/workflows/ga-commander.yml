@@ -2,7 +2,7 @@ on: [issue_comment]
 name: PR Commands
 jobs:
   commander:
-    name: Check comments for commands
+    name: Check for commands
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,5 +11,5 @@ jobs:
           SHA: '${{env.parentSHA}}'
         with:
           script: |
-            const script = require('${{ github.workspace }}/.github/scripts/kommander.js')
+            const script = require('${{ github.workspace }}/.github/scripts/ga-commander.js')
             await script({github, context, core})

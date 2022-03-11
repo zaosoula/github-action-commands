@@ -1,7 +1,9 @@
 const { useHelpers, Reactions } = require('./helpers');
 const ping = require('./commands/ping');
+const help = require('./commands/help');
 const commands = [
   ping,
+  help,
 ];
 
 module.exports = async ({github, context, core}) => {
@@ -37,6 +39,14 @@ module.exports = async ({github, context, core}) => {
 
   console.log(command);
 
-  await command.execute({github, context, core, args});
+  const commandCtx = {
+    github,
+    context,
+    core,
+    args,
+    commands
+  }
+
+  await command.execute(commandCtx);
   return true;
 }

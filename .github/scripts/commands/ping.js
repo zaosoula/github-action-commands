@@ -2,6 +2,8 @@ const { useHelpers, Reactions } = require('../helpers');
 
 module.exports = {
   command: 'ping',
+  usage: '/ping',
+  description: 'pong',
   execute: async ({github, context, core}) => {
     const { addComment, addReaction } = useHelpers({github, context, core});
 
