@@ -10,7 +10,7 @@ module.exports = {
 
     let comment = `### Help\n\n\n${
       commands.map(
-        command => `${command.usage} \`\`${command.description || ' '}\`\``
+        command => `**${command.usage}**\n*- ${command.description || 'No description'}*`
       ).join('\n\n')}`
 
     await addComment(comment);
