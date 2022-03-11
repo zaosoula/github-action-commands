@@ -8,17 +8,10 @@ module.exports = {
     const { commands } = ctx;
     const { addComment, addReaction } = useHelpers(ctx);
 
-    let comment = `
-    ### Help
-    ${commands.map(
-      command => 
-      `
-        ${command.usage}
-        \`\`${command.description}\`\`
-      `
-    ).join('\n')}
-    `
-
+    let comment = `### Help\n\n${
+      commands.map(
+        command => `${command.usage} \`\`${command.description}\`\``
+      ).join('\n')}`
 
     await addComment(comment);
     await addReaction();
